@@ -1,0 +1,17 @@
+{
+  "name": "wordle-shared",
+  "version": "1.0.0",
+  "description": "Shared types and interfaces for Wordle game",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["wordle", "shared", "types"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
