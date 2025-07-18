@@ -1,39 +1,3 @@
-export interface StartGameRequest {
-  playerId: string;
-}
-
-export interface StartGameResponse {
-  gameId: string;
-  guesses: string[];
-}
-
-export interface MakeGuessRequest {
-  gameId: string;
-  guess: string;
-}
-
-export interface MakeGuessResponse {
-  guess: string;
-  result: string[];
-  isComplete: boolean;
-  isWon: boolean;
-  word?: string;
-}
-
-export interface GetStatsRequest {
-  playerId: string;
-}
-
-export interface GetStatsResponse {
-  totalGames: number;
-  wonGames: number;
-  winRate: number;
-}
-
-export interface GetGameRequest {
-  gameId: string;
-}
-
 export interface GetGameResponse {
   gameId: string;
   guesses: string[];
@@ -54,18 +18,13 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface AuthResponse {
-  token: string;
-  user: {
-    id: string;
-    username: string;
-    email: string;
-  };
-}
-
-export interface User {
+export interface UserShort {
   id: string;
   username: string;
   email: string;
-  createdAt: Date;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: UserShort;
 }

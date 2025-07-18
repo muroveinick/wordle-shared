@@ -1,3 +1,6 @@
+import { SharedPlayer } from "./shared-game-types";
+import { LetterStatus } from "./types";
+
 export interface GameStartedData {
   gameId: string;
   guesses: string[];
@@ -6,7 +9,7 @@ export interface GameStartedData {
 
 export interface GuessResultData {
   guess: string;
-  result: string[];
+  result: LetterStatus[];
   isComplete: boolean;
   isWon: boolean;
   word?: string;
@@ -21,35 +24,6 @@ export interface InvalidWordData {
   message: string;
 }
 
-export interface JoinedRoomData {
-  roomId: string;
-  playerCount: number;
-}
-
-export interface PlayerJoinedData {
-  playerId: string;
-  playerCount: number;
-}
-
-export interface PlayerLeftData {
-  playerId: string;
-  playerCount: number;
-}
-
-export interface PlayerGuessData {
-  playerId: string;
-  guess: string;
-  result: string[];
-  isComplete: boolean;
-  isWon: boolean;
-  word?: string;
-}
-
-export interface JoinGameData {
-  playerId: string;
-  roomId?: string;
-}
-
 export interface StartGameData {
   playerId: string;
 }
@@ -59,30 +33,21 @@ export interface MakeGuessData {
   guess: string;
 }
 
-export interface SharedGamePlayer {
-  userId: string;
-  username: string;
-  guesses: string[];
-  results: string[][];
-  isComplete: boolean;
-  isWon: boolean;
-}
-
 export interface SharedGameCreatedData {
   gameId: string;
   word?: string;
-  players: SharedGamePlayer[];
+  players: SharedPlayer[];
 }
 
 export interface SharedGameJoinedData {
   gameId: string;
-  players: SharedGamePlayer[];
-  currentPlayer: SharedGamePlayer;
+  players: SharedPlayer[];
+  currentPlayer: SharedPlayer;
 }
 
 export interface SharedGamePlayerJoinedData {
   gameId: string;
-  player: SharedGamePlayer;
+  player: SharedPlayer;
 }
 
 export interface SharedGamePlayerLeftData {
@@ -93,7 +58,7 @@ export interface SharedGamePlayerLeftData {
 
 export interface SharedGamePlayerGuessData {
   gameId: string;
-  player: SharedGamePlayer;
+  player: SharedPlayer;
   guess: string;
   result: string[];
 }
@@ -115,38 +80,46 @@ export interface SharedGameLeaveData {
   gameId: string;
 }
 
+export interface SharedGamePlayerOnlineData {
+  gameId: string;
+  userId: string;
+  username: string;
+}
+
+export interface SharedGamePlayerOfflineData {
+  gameId: string;
+  userId: string;
+  username: string;
+}
+
 export interface ServerToClientEvents {
   // Single Player Events
-  'game-started': (data: GameStartedData) => void;
-  'guess-result': (data: GuessResultData) => void;
-  'invalid-word': (data: InvalidWordData) => void;
-  'error': (data: ErrorData) => void;
-  'joined-room': (data: JoinedRoomData) => void;
-  'player-joined': (data: PlayerJoinedData) => void;
-  'player-left': (data: PlayerLeftData) => void;
-  'player-guess': (data: PlayerGuessData) => void;
-  'game-started-by-player': (data: GameStartedData) => void;
-  
+  "game-started": (data: GameStartedData) => void;
+  "guess-result": (data: GuessResultData) => void;
+  "invalid-word": (data: InvalidWordData) => void;
+  error: (data: ErrorData) => void;
+
   // Shared Game Events
-  'shared-game-created': (data: SharedGameCreatedData) => void;
-  'shared-game-joined': (data: SharedGameJoinedData) => void;
-  'shared-game-player-joined': (data: SharedGamePlayerJoinedData) => void;
-  'shared-game-player-left': (data: SharedGamePlayerLeftData) => void;
-  'shared-game-guess-result': (data: GuessResultData) => void;
-  'shared-game-player-guess': (data: SharedGamePlayerGuessData) => void;
-  'shared-game-left': (data: SharedGameLeftData) => void;
-  'shared-game-error': (data: ErrorData) => void;
+  "shared-game-created": (data: SharedGameCreatedData) => void;
+  "shared-game-joined": (data: SharedGameJoinedData) => void;
+  "shared-game-player-joined": (data: SharedGamePlayerJoinedData) => void;
+  "shared-game-player-left": (data: SharedGamePlayerLeftData) => void;
+  "shared-game-player-went-online": (data: SharedGamePlayerOnlineData) => void;
+  "shared-game-player-went-offline": (data: SharedGamePlayerOfflineData) => void;
+  "shared-game-guess-result": (data: GuessResultData) => void;
+  "shared-game-player-guess": (data: SharedGamePlayerGuessData) => void;
+  "shared-game-left": (data: SharedGameLeftData) => void;
 }
 
 export interface ClientToServerEvents {
   // Single Player Events
-  'join-game': (data: JoinGameData) => void;
-  'start-game': (data: StartGameData) => void;
-  'make-guess': (data: MakeGuessData) => void;
-  
+  "start-game": (data: StartGameData) => void;
+  "make-guess": (data: MakeGuessData) => void;
+  "shared-game-player-went-offline": () => void;
+
   // Shared Game Events
-  'shared-game-create': () => void;
-  'shared-game-join': (data: SharedGameJoinData) => void;
-  'shared-game-guess': (data: SharedGameGuessData) => void;
-  'shared-game-leave': (data: SharedGameLeaveData) => void;
+  "shared-game-create": () => void;
+  "shared-game-join": (data: SharedGameJoinData) => void;
+  "shared-game-guess": (data: SharedGameGuessData) => void;
+  "shared-game-leave": (data: SharedGameLeaveData) => void;
 }

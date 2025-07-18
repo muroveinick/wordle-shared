@@ -8,10 +8,15 @@
     "build": "tsc",
     "dev": "tsc --watch"
   },
-  "keywords": ["wordle", "shared", "types"],
+  "keywords": [
+    "wordle",
+    "shared",
+    "types"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "mongoose": "^8.16.2"
   }
 }
